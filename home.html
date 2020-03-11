@@ -9,7 +9,7 @@
     <label>Number of squares:</label>
     <input id="arrSize" type="number" />
     <button onclick="window.location.reload()">Clear</button>
-    <div>Performance: <span id="performance"></span>Seg</div>
+    <div>Performance: <span id="performance"></span>ms</div>
     <div id="squares">
 
     </div>
@@ -36,13 +36,13 @@
     function mountSquare() {
         const arrSize = document.getElementById("arrSize").value
         const arr = randomColors(arrSize || 10)
-        const duplicate = arr.filter((item, key) => arr.indexOf(item) !== key)
         const squares = document.getElementById("squares")
         const performance = document.getElementById("performance")
-
+        
         var startTimer = window.performance.now();
-
+        
         // START - WRITE YOUR FUNCTION HERE
+        const duplicate = arr.filter((item, key) => arr.indexOf(item) !== key)
 
         arr.map(color => {
                 if(duplicate.includes(color)) {
