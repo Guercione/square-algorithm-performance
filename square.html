@@ -18,7 +18,7 @@
 
 <style>
     #squares {
-        width: 1000px;
+        width: 100%;
         display: flex;
         flex-wrap: wrap;
     }
@@ -33,7 +33,6 @@
 <script>
     function mountSquare() {
         const arrSize = document.getElementById("arrSize").value
-        console.warn(arrSize)
         const arr = randomColors(arrSize || 10)
         const duplicate = arr.filter((item, key) => arr.indexOf(item) !== key)
         const squares = document.getElementById("squares")
