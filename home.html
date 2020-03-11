@@ -7,7 +7,7 @@
 <body>
     <button onclick="mountSquare()">Generate</button>
     <label>Number of squares:</label>
-    <input id="arrSize" type="number" />
+    <input id="arrSize" type="number" value=100 />
     <button onclick="window.location.reload()">Clear</button>
     <div>Performance: <span id="performance"></span>ms</div>
     <div id="squares">
@@ -36,26 +36,38 @@
     function mountSquare() {
         const arrSize = document.getElementById("arrSize").value
         const arr = randomColors(arrSize || 10)
-        const squares = document.getElementById("squares")
+        
         const performance = document.getElementById("performance")
-        
+        const squares = document.getElementById("squares")
+
         var startTimer = window.performance.now();
-        
         // START - WRITE YOUR FUNCTION HERE
-        const duplicate = arr.filter((item, key) => arr.indexOf(item) !== key)
 
-        arr.map(color => {
-                if(duplicate.includes(color)) {
-                    squares.innerHTML += `<div class="square" style='border: 1px solid ${color}; background-color: ${color};'>Test</div>`
-                } else {
-                    squares.innerHTML += `<div class="square" style='border: 1px solid ${color};'>Test</div>`
-                }
+        const obj = {}
+
+        for (let i = 0; i < arrSize; i++) {
+            obj[arr[i]] = obj[arr[i]] ? obj[arr[i]] + 1 : 1
+        }
+
+        const fragment = document.createDocumentFragment();
+
+        Object.keys(obj).forEach(function (color) {
+            const div = document.createElement('div')
+            div.className = 'square'
+            div.style.border = "1px solid " + color
+
+            if(obj[color] > 1) {
+                div.style.backgroundColor = color
             }
-        )
 
+            div.textContent = obj[color]
+            fragment.appendChild(div)
+        });
+
+        squares.appendChild(fragment);
         // END
-        
         var endTimer = window.performance.now();
+        
         performance.textContent = endTimer - startTimer
     }   
 </script>
